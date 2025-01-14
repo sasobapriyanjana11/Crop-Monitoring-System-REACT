@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+/* General styling for the header */
+.header {
+    display: flex;
+    width: 100%;
+    min-height: 100vh; /* Full height to cover the screen */
+    flex-direction: row;
+}
+
+/* Top section styling (row layout) */
+.top-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2f855a; /* Darker green background for the top section */
+    color: white;
+    width: 100%;
+    height: 50px;
+    padding: 20px;
+    position: absolute;
+}
+
+/* Title styling */
+.top-info h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-right: 20px; /* Space between title and the rest */
+}
+
+/* Time styling */
+.top-info .text-white {
+    margin-right: 20px; /* Space between time and profile info */
+}
+
+/* Profile and button section styling */
+.top-info .flex {
+    display: flex;
+    align-items: center;
+}
+
+.top-info .space-x-4 {
+    display: flex;
+    gap: 16px; /* Space between profile image and button */
+}
+
+/* Sidebar (Navbar) */
+.navbar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #2d4844; /* Dark background color for sidebar */
+    color: white;
+    padding: 20px;
+    padding-top: 40px; /* Space for the top content */
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.navbar li {
+    margin-bottom: 15px;
+}
+
+.custom-link {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.custom-link i {
+    margin-right: 10px;
+}
+
+.custom-link:hover {
+    background-color: #2d3748; /* Darker hover background */
+    border-radius: 5px;
+}
+
+/* Optional: Style for the profile image and sign-in button */
+.w-10 {
+    width: 40px;
+}
+
+.h-10 {
+    height: 40px;
+}
+
+.rounded-full {
+    border-radius: 50%;
+}
+
+.border {
+    border: 2px solid white;
+}
+
+.bg-gray-200 {
+    background-color: #edf2f7;
+}
+
+.text-yellow-700 {
+    color: #b7791f;
+}
+
+.hover\:bg-gray-500:hover {
+    background-color: #6b7280;
+}
+
+.mb-4 {
+    margin-bottom: 16px;
+}

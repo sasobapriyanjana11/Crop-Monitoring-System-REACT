@@ -1,0 +1,29 @@
+
+.navbar {
+    display: flex;
+    flex-direction: column; /* Arrange items in a column */
+    align-items: flex-start; /* Align items to the start of the column */
+    background-color: #f8f9fa; /* Set a background color for the navbar */
+    padding:50px 10px;
+    width: 200px; /* Set a fixed width for the navbar */
+    height: 100vh; /* Full height for vertical alignment */
+    border-right: 1px solid #ddd; /* Optional: Add a border to separate the navbar */
+    position: fixed;
+
+}
+
+.navbar .custom-link {
+    @apply hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium;
+    width: 100%; /* Make links take full width */
+    text-align: left; /* Align text to the left */
+    margin-bottom: 10px; /* Add space between links */
+    color: #333; /* Set the text color */
+    text-decoration: none; /* Remove underline from links */
+    display: flex;
+    flex-direction: column; /* Arrange items in a column */
+    align-items: flex-start; /* Align items to the start of the column */
+}
+
+.navbar .custom-link:hover {
+    color: white; /* Change text color on hover */
+}
