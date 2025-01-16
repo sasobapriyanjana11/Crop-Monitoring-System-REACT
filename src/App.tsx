@@ -25,7 +25,7 @@ function App() {
                {path:'/staff',element:<Staff/>},
                {path:'/user',element:<User/>},
                {path:'/vehicle',element:<Vehicle/>},
-               {path:'/login',element:<SignIn/>}
+               {path:'/signout',element:<SignIn/>}
            ]
        },
 

@@ -1,6 +1,9 @@
 import {Link} from "react-router";
 import "../assets/styles/Navigation.css";
+import "../assets/styles/Dashboard.css"
 import {useEffect, useState} from "react";
+import profilePic from "../assets/images/manager-profile-pic.jpeg";
+import logo from "../assets/images/crop_logo.png"
 
 export function Navigation() {
     const [currentTime, setCurrentTime] = useState(new Date());
@@ -15,17 +18,12 @@ export function Navigation() {
         <>
             <header className="header">
                 <nav className="navbar">
-                    <div className=" items-center space-x-4">
-                        <div className=" items-center px-20">
-                            <img src="../assets/images/profile_pic.jpeg" alt="User Profile"
-                                 className="w-10 h-10 rounded-full border border-white"/>
+                    <div className="items-center space-x-4">
+                        <div className="items-center px-20">
+                            <img src={logo} alt="crop_logo"
+                                 className=" w-50 h-50 rounded-full border my-2 mt-1 border-white object-cover "
+                            />
                         </div>
-                        <div className="text-white">
-                            {currentTime.toLocaleDateString()} {currentTime.toLocaleTimeString()}
-                        </div>
-                        {/*<button className="bg-gray-200 text-yellow-700 px-3 py-1 rounded-full hover:bg-gray-500">*/}
-                        {/*    Sign In*/}
-                        {/*</button>*/}
                     </div>
                     <ul>
                         <li>
@@ -68,12 +66,39 @@ export function Navigation() {
                             </Link>
                         </li>
                         <li>
-                            <Link to='/login' className="custom-link">
-                                <i className="fas fa-user"></i> login
+                            <Link to='/signout' className="custom-link">
+                                    <i className="fas fa-sign-out-alt"></i>Sign Out
                             </Link>
                         </li>
                     </ul>
                 </nav>
+                <div className="topbar">
+                    <h2 className="text-[#299863] -mt-[9%] text-[20px] font-bold ">Green Shadow</h2>
+
+                    <div className="relative flex items-center justify-center text-gray-500">
+                        {/* Notification Icon */}
+                        <div className="flex justify-end items-center p-2">
+                            <i className="fas fa-bell notification-icon w-5 h-5"></i>
+                        </div>
+                        {/* Profile Section */}
+                        <div className="flex items-center space-x-2 ">
+                            <img
+                                src={profilePic}
+                                alt="User Profile"
+                                className="w-10 h-10 rounded-full border border-white"
+                            />
+                            <div className="text-gray-700 text-sm p-x-16">
+                                {/* Display Current Date and Time */}
+                                <p className="p-4">
+                                    {currentTime.toLocaleDateString()}
+                                    <span className="p-4">
+                                        {currentTime.toLocaleTimeString()}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </header>
         </>
     )
