@@ -14,10 +14,10 @@ const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        signInUser: (state, action: PayloadAction<{ username: string; password: string }>) => {
+        signInUser: (state, action: PayloadAction<{ email: string; password: string }>) => {
             // Handle sign-in logic here (API call)
             // For now, just a mock login
-            if (action.payload.username === "user" && action.payload.password === "password") {
+            if (action.payload.email === "user" && action.payload.password === "password") {
                 state.isAuthenticated = true;
                 state.error = null;
             } else {
