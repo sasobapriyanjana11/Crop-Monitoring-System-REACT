@@ -10,6 +10,8 @@ import {Staff} from "./pages/Staff.tsx";
 import {User} from "./pages/User.tsx";
 import {Vehicle} from "./pages/Vehicle.tsx";
 import {SignIn} from "./pages/SignIn.tsx";
+import AuthLayout from "./components/AuthLayout.tsx";
+import {SignUp} from "./pages/signUp.tsx";
 
 function App() {
    const routes=createBrowserRouter([
@@ -25,11 +27,18 @@ function App() {
                {path:'/staff',element:<Staff/>},
                {path:'/user',element:<User/>},
                {path:'/vehicle',element:<Vehicle/>},
-               {path:'/signout',element:<SignIn/>}
-           ]
+           ],
+       },
+       {
+           path:"",
+           element:<AuthLayout/>,
+           children:[
+               { path: "/login", element: <SignIn /> },
+               { path: "/signup", element: <SignUp /> },
+           ],
        },
 
-   ])
+   ]);
 
   return (
     <>
