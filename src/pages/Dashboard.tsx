@@ -64,8 +64,6 @@ export function Dashboard() {
                             <canvas id="doughnut"></canvas>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </>

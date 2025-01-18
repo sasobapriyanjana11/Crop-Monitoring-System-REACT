@@ -34,7 +34,7 @@ export function Crop() {
     return (
         <>
             {/* Main Content */}
-            <div className="ccol-span-12 lg:col-span-10 p-4 fixed top-[60px] w-[calc(100%-260px)] left-[250px] min-h-[calc(100vh-60px)] bg-[#f5f5f5] overflow-y-auto">
+            <div className="col-span-12 lg:col-span-10 p-4 fixed top-[60px] w-[calc(100%-260px)] left-[250px] min-h-[calc(100vh-60px)] bg-[#f5f5f5] overflow-y-auto">
                 <h1 className="text-2xl font-bold text-center my-4">Crop Management</h1>
 
                 <div className="flex justify-between items-center mb-3">

@@ -73,7 +73,7 @@ export function Navigation() {
                     </ul>
                 </nav>
                 <div className="topbar">
-                    <h2 className="text-[#299863] -mt-[9%] text-[20px] font-bold ">Green Shadow</h2>
+                    <h2 className="text-[#299863] -mt-[9%] text-[20px] font-bold">Green Shadow</h2>
 
                     <div className="relative flex items-center justify-center text-gray-500">
                         {/* Notification Icon */}
