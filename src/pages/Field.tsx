@@ -206,7 +206,7 @@ export function Field() {
                                     </label>
                                     <input
                                         type="file"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                                        className="form-input w-full border bg-white border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-200 file:text-green-800 hover:file:bg-green-200"
                                         id="fieldImage1"
                                         onChange={handleFileFieldImage_1Change}
                                     />
@@ -217,7 +217,7 @@ export function Field() {
                                     </label>
                                     <input
                                         type="file"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                                        className="form-input w-full border bg-white border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-200 file:text-green-800 hover:file:bg-green-200"
                                         id="fieldImage2"
                                         onChange={handleFileFieldImage_2Change}
                                     />
