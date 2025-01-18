@@ -51,7 +51,7 @@ The front end of the Crop Monitoring Management System is designed using React t
 git clone https://github.com/sasobapriyanjana11/Crop-Monitoring-System-REACT.git
 
 ## License
-🦇© 2024 All Right Reserved Created By sasobapriyanjana11
+🦇 © 2025 All Right Reserved Created By sasobapriyanjana11
 <br/>
 This project is licensed under the [MIT](LICENSE) license
 
