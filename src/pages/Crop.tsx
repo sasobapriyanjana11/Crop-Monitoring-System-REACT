@@ -100,7 +100,7 @@ export function Crop() {
             {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/2">
-                        <div className="flex justify-between items-center px-4 py-2 border-b">
+                        <div className="flex justify-between items-center px-4 py-2 border-b bg-lime-200">
                             <h5 className="text-lg font-bold">Crop Details</h5>
                             <button
                                 className="text-gray-500 hover:text-gray-700"
@@ -119,7 +119,7 @@ export function Crop() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="cropCode"
                                             placeholder="Enter Crop Code"
                                             value={newCrop.cropCode}
@@ -132,7 +132,7 @@ export function Crop() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="commonName"
                                             placeholder="Enter Common Name"
                                             value={newCrop.commonName}
@@ -140,14 +140,14 @@ export function Crop() {
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="commonName" className="block font-medium">
-                                            scientificName
+                                        <label htmlFor="scientificName" className="block font-medium">
+                                            Scientific Name
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="scientificName"
-                                            placeholder="Enter Common Name"
+                                            placeholder="Enter scientific Name"
                                             value={newCrop.scientificName}
                                             onChange={(e) => setNewCrop({...newCrop, scientificName: e.target.value})}
                                         />
@@ -157,7 +157,7 @@ export function Crop() {
                                             Category
                                         </label>
                                         <select
-                                            className="form-select w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-select w-full border bg-white border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="category"
                                             value={newCrop.category}
                                             onChange={(e) => setNewCrop({...newCrop, category: e.target.value})}
@@ -180,7 +180,7 @@ export function Crop() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="scientificName"
                                             placeholder="Enter cropSeason"
                                             value={newCrop.cropSeason}
@@ -189,11 +189,11 @@ export function Crop() {
                                     </div>
                                     <div>
                                         <label htmlFor="fieldCode" className="block font-medium">
-                                            fieldCode
+                                            Field Code
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="fieldCode"
                                             placeholder="Enter fieldCode"
                                             value={newCrop.fieldCode}
@@ -208,7 +208,7 @@ export function Crop() {
                                     </label>
                                     <input
                                         type="file"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        className="form-input w-full border bg-white border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-200 file:text-green-800 hover:file:bg-green-200"
                                         id="image"
                                         onChange={handleFileChange}
                                     />

@@ -51,8 +51,7 @@ export function Field() {
                     />
                     <button
                         onClick={openModal}
-                        className="bg-green-800 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:ring-2 focus:ring-green-400"
-                    >
+                        className="bg-green-800 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:ring-2 focus:ring-green-400">
                         <i className="fa fa-plus"></i>
                         Add Field
                     </button>
@@ -108,7 +107,7 @@ export function Field() {
             {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/2">
-                        <div className="flex justify-between items-center px-4 py-2 border-b">
+                        <div className="flex justify-between items-center px-4 py-2 border-b bg-lime-100">
                             <h5 className="text-lg font-bold">Field Details</h5>
                             <button
                                 className="text-gray-500 hover:text-gray-700"
@@ -127,7 +126,7 @@ export function Field() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="fieldCode"
                                             placeholder="Enter Field Code"
                                             value={newField.fieldCode}
@@ -140,7 +139,7 @@ export function Field() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="fieldName"
                                             placeholder="Enter Field Name"
                                             value={newField.fieldName}
@@ -153,7 +152,7 @@ export function Field() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="fieldLocation"
                                             placeholder="Enter Field Location"
                                             value={newField.fieldLocation}
@@ -166,7 +165,7 @@ export function Field() {
                                         </label>
                                         <input
                                             type="number"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="extentSize"
                                             placeholder="Enter Extent Size"
                                             value={newField.extentSize}
@@ -179,7 +178,7 @@ export function Field() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="cropCode"
                                             placeholder="Enter Crop Code"
                                             value={newField.cropCode}
@@ -192,7 +191,7 @@ export function Field() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="staffId"
                                             placeholder="Enter Staff Id"
                                             value={newField.staffId}
@@ -207,7 +206,7 @@ export function Field() {
                                     </label>
                                     <input
                                         type="file"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="fieldImage1"
                                         onChange={handleFileFieldImage_1Change}
                                     />
@@ -218,7 +217,7 @@ export function Field() {
                                     </label>
                                     <input
                                         type="file"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="fieldImage2"
                                         onChange={handleFileFieldImage_2Change}
                                     />

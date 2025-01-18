@@ -73,7 +73,7 @@ export function Navigation() {
                     </ul>
                 </nav>
                 <div className="topbar">
-                    <h2 className="text-[#299863] -mt-[9%] text-[20px] font-bold">Green Shadow</h2>
+                    <h2 className="text-[#299863] text-[20px] font-bold">Green Shadow</h2>
 
                     <div className="relative flex items-center justify-center text-gray-500">
                         {/* Notification Icon */}
@@ -85,13 +85,13 @@ export function Navigation() {
                             <img
                                 src={profilePic}
                                 alt="User Profile"
-                                className="w-10 h-10 rounded-full border border-white"
+                                className="w-7 h-7 rounded-full border border-white"
                             />
-                            <div className="text-gray-700 text-sm p-x-16">
+                            <div className="text-gray-700 text-sm p-x-13">
                                 {/* Display Current Date and Time */}
-                                <p className="p-4">
+                                <p className="p-3">
                                     {currentTime.toLocaleDateString()}
-                                    <span className="p-4">
+                                    <span className="p-3">
                                         {currentTime.toLocaleTimeString()}
                                     </span>
                                 </p>

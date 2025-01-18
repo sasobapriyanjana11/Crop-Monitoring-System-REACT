@@ -101,7 +101,7 @@ export function MonitoringLog() {
             {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/2">
-                        <div className="flex justify-between items-center px-4 py-2 border-b">
+                        <div className="flex justify-between items-center px-4 py-2 border-b bg-lime-100">
                             <h5 className="text-lg font-bold">Monitoring Log Details</h5>
                             <button
                                 className="text-gray-500 hover:text-gray-700"
@@ -120,7 +120,7 @@ export function MonitoringLog() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="logCode"
                                             placeholder="Enter Log Code"
                                             value={newMLog.logCode}
@@ -133,7 +133,7 @@ export function MonitoringLog() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="logDate"
                                             placeholder="Enter Log Date"
                                             value={newMLog.logDate.toISOString().split('T')[0]}
@@ -149,7 +149,7 @@ export function MonitoringLog() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="observation"
                                             placeholder="Enter Observation"
                                             value={newMLog.observation}
@@ -162,7 +162,7 @@ export function MonitoringLog() {
                                         </label>
                                         <input
                                             type="file"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="observedImage"
                                             onChange={handleFileChange}
                                         />
@@ -173,7 +173,7 @@ export function MonitoringLog() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="fieldCode"
                                             placeholder="Enter Field Code"
                                             value={newMLog.fieldCode}
@@ -182,11 +182,11 @@ export function MonitoringLog() {
                                     </div>
                                     <div>
                                         <label htmlFor="cropCode" className="block font-medium">
-                                            cropCode
+                                            Crop Code
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="cropCode"
                                             placeholder="Enter Crop Code"
                                             value={newMLog.cropCode}
@@ -199,7 +199,7 @@ export function MonitoringLog() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="staffId"
                                             placeholder="Enter Staff Id"
                                             value={newMLog.staffId}

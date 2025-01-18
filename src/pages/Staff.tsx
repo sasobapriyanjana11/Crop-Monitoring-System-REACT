@@ -117,7 +117,7 @@ export function Staff() {
             {isModalOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                 <div className="bg-white rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/2">
-                    <div className="flex justify-between items-center px-4 py-2 border-b">
+                    <div className="flex justify-between items-center px-4 py-2 border-b bg-lime-100">
                         <h5 className="text-lg font-bold">Staff Details</h5>
                         <button
                             className="text-gray-500 hover:text-gray-700"
@@ -136,7 +136,7 @@ export function Staff() {
                                     </label>
                                     <input
                                         type="text"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="id"
                                         placeholder="Enter Staff Id"
                                         value={newStaff.id}
@@ -149,7 +149,7 @@ export function Staff() {
                                     </label>
                                     <input
                                         type="text"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="firstName"
                                         placeholder="Enter First Name"
                                         value={newStaff.firstName}
@@ -162,7 +162,7 @@ export function Staff() {
                                     </label>
                                     <input
                                         type="text"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="lastName"
                                         placeholder="Enter Last Name"
                                         value={newStaff.lastName}
@@ -175,7 +175,7 @@ export function Staff() {
                                     </label>
                                     <input
                                         type="text"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="designation"
                                         placeholder="Enter Designation"
                                         value={newStaff.designation}
@@ -187,7 +187,7 @@ export function Staff() {
                                         Gender
                                     </label>
                                     <select
-                                        className="form-select w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        className="form-select w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="gender"
                                         value={newStaff.gender}
                                         onChange={(e) => setNewStaff({...newStaff, gender: e.target.value})}
@@ -204,7 +204,7 @@ export function Staff() {
                                     </label>
                                     <input
                                         type="date"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="joinedDate"
                                         value={newStaff.joinedDate.toISOString().split('T')[0]}
                                         onChange={(e) => setNewStaff({
@@ -219,7 +219,7 @@ export function Staff() {
                                     </label>
                                     <input
                                         type="date"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="DOB"
                                         value={newStaff.DOB.toISOString().split('T')[0]}
                                         onChange={(e) => setNewStaff({...newStaff, DOB: new Date(e.target.value)})}
@@ -230,7 +230,7 @@ export function Staff() {
                                         Address
                                     </label>
                                     <textarea
-                                        className="form-textarea w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        className="form-textarea w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="address"
                                         placeholder="Enter Address"
                                         value={newStaff.address}
@@ -243,7 +243,7 @@ export function Staff() {
                                     </label>
                                     <input
                                         type="number"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="contactNumber"
                                         placeholder="Enter Contact Number"
                                         value={newStaff.contactNumber}
@@ -259,7 +259,7 @@ export function Staff() {
                                     </label>
                                     <input
                                         type="email"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="email"
                                         placeholder="Enter Email"
                                         value={newStaff.email}
@@ -272,7 +272,7 @@ export function Staff() {
                                     </label>
                                     <input
                                         type="text"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="role"
                                         placeholder="Enter Role"
                                         value={newStaff.role}

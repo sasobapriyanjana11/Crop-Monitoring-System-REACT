@@ -33,7 +33,7 @@ export function Vehicle() {
     return (
         <>
             <div className="col-span-12 lg:col-span-10 p-4 fixed top-[60px] w-[calc(100%-260px)] left-[250px] min-h-[calc(100vh-60px)] bg-[#f5f5f5] overflow-y-auto">
-                <h1 className="text-4xl font-bold text-center my-4">Vehicle Management</h1>
+                <h1 className="text-2xl font-bold text-center my-4">Vehicle Management</h1>
 
                 <div className="flex justify-between items-center mb-3">
                     <input
@@ -42,7 +42,7 @@ export function Vehicle() {
                         placeholder="Search Vehicle"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                    />;
+                    />
                     <button
                         className="bg-green-800 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:ring-2 focus:ring-green-400"
                         onClick={openModal}
@@ -103,7 +103,7 @@ export function Vehicle() {
             {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/2">
-                        <div className="flex justify-between items-center px-4 py-2 border-b">
+                        <div className="flex justify-between items-center px-4 py-2 border-b bg-lime-100">
                             <h5 className="text-lg font-bold">Vehicle Details</h5>
                             <button className="text-gray-500 hover:text-gray-700" onClick={closeModal}>
                                 &times;
@@ -118,7 +118,7 @@ export function Vehicle() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="vehicleCode"
                                             placeholder="Enter Vehicle Code"
                                             value={newVehicle.vehicleCode}
@@ -131,7 +131,7 @@ export function Vehicle() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="licensePlateNUmber"
                                             placeholder="Enter License Plate Number"
                                             value={newVehicle.LicensePlateNumber}
@@ -146,7 +146,7 @@ export function Vehicle() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="category"
                                             placeholder="Enter Vehicle Category"
                                             value={newVehicle.category}
@@ -160,7 +160,7 @@ export function Vehicle() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="fuelType"
                                             placeholder="Enter Fuel Type"
                                             value={newVehicle.fuelType}
@@ -174,7 +174,7 @@ export function Vehicle() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="allocateStaffMember"
                                             placeholder="Enter Allocated Staff Member"
                                             value={newVehicle.allocateStaffMember}
@@ -189,7 +189,7 @@ export function Vehicle() {
                                         </label>
                                         <input
                                             type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="remarks"
                                             placeholder="Enter Remarks"
                                             value={newVehicle.remarks}
