@@ -4,8 +4,14 @@ import "../assets/styles/Dashboard.css"
 import {useEffect, useState} from "react";
 import profilePic from "../assets/images/manager-profile-pic.jpeg";
 import logo from "../assets/images/crop_logo.png"
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../store/store.ts";
+import { logOut } from "../reducers/AuthSlice";
 
 export function Navigation() {
+    const authState = useSelector((state: RootState) => state.auth);
+    const dispatch = useDispatch();
+
     const [currentTime, setCurrentTime] = useState(new Date());
 
     useEffect(() => {
@@ -14,6 +20,10 @@ export function Navigation() {
         }, 1000);
         return () => clearInterval(timer);
     }, []);
+
+    const handleLogout = () => {
+        dispatch(logOut());
+    };
     return (
         <>
             <header className="header">
@@ -65,12 +75,26 @@ export function Navigation() {
                                 <i className="fas fa-truck"></i> Vehicle
                             </Link>
                         </li>
-                        <li>
-                            <Link to='/signout' className="custom-link">
-                                    <i className="fas fa-sign-out-alt"></i>Sign Out
-                            </Link>
-                        </li>
+                        {/*<li>*/}
+                        {/*    <Link to='/signout' className="custom-link">*/}
+                        {/*        <i className="fas fa-sign-out-alt"></i>Sign Out*/}
+                        {/*    </Link>*/}
+                        {/*</li>*/}
                     </ul>
+                    <div className="mb-5">
+                        {authState.isAuthenticated ? (
+                            <div
+                                className="custom-link w-full cursor-pointer"
+                                onClick={handleLogout}
+                            >
+                                <i className="fas fa-user"></i> Logout
+                            </div>
+                        ) : (
+                            <Link to="/login" className="custom-link">
+                                <i className="fas fa-user"></i> Login
+                            </Link>
+                        )}
+                    </div>
                 </nav>
                 <div className="topbar">
                     <h2 className="text-[#299863] text-[20px] font-bold">Green Shadow</h2>
