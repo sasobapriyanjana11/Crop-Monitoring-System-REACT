@@ -15,7 +15,6 @@ const rootReducer = combineReducers({
     fields:fieldSlice,
     mLogs:monitoringLogSlice,
     auth:authSlice,
-    // Add other reducers (e.g., equipments, staff, vehicles) if needed.
 });
 
 export const store = configureStore({
