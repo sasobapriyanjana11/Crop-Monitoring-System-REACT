@@ -14,7 +14,7 @@ The front end of the Crop Monitoring Management System is designed using React t
 - *Font Awesome*: Icons for buttons and UI components.
 - *HTML5*:Structuring the web application.
 
-## Features
+
 
 ### Front-End Features
 
@@ -45,7 +45,29 @@ The front end of the Crop Monitoring Management System is designed using React t
     - Add or update records via modals for a seamless user interface.
     - Includes form validation for reliable data input.
 
-
+## React GREEN SHADOW SYSTEM - screen shots
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; text-align: center;">
+     <div style="flex: 1 1 calc(50% - 16px); max-width: calc(50% - 16px);">
+        <h3>SignIn</h3>
+        <img src="https://github.com/user-attachments/assets/cms-pic/signIn.png" alt="Login Page" style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 8px;">
+    </div>
+    <div style="flex: 1 1 calc(50% - 16px); max-width: calc(50% - 16px);">
+        <h3>Dashboard</h3>
+        <img src="https://github.com/user-attachments/assets/cms-pic/dashboard.png" alt="Dashboard Page" style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 8px;">
+    </div>
+    <div style="flex: 1 1 calc(50% - 16px); max-width: calc(50% - 16px);">
+        <h3>Equipment Page</h3>
+        <img src="https://github.com/user-attachments/assets/cms-pic/equipment-table.png" alt="Equipment page" style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 8px;">
+    </div>
+    <div style="flex: 1 1 calc(50% - 16px); max-width: calc(50% - 16px);">
+        <h3>Crop Page</h3>
+        <img src="https://github.com/user-attachments/assets/cms-pic/crop-management-table.png" alt="Crop page" style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 8px;">
+    </div>
+    <div style="flex: 1 1 calc(50% - 16px); max-width: calc(50% - 16px);">
+        <h3>Crop Input Popup Page</h3>
+        <img src="https://github.com/user-attachments/assets/cms-pic/crop-management-save.png" alt="Crop popup page" style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 8px;">
+    </div>
+</div>
 
 -Clone the repository:
 git clone https://github.com/sasobapriyanjana11/Crop-Monitoring-System-REACT.git
