@@ -12,7 +12,7 @@ export function SignUp() {
 
     useEffect(() => {
         if (authState.isAuthenticated) {
-            navigate("/");
+            navigate("/login");
         }
     }, [authState.isAuthenticated, navigate]);
 
@@ -34,7 +34,10 @@ export function SignUp() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        dispatch(signUpUser(credentials)); // Dispatch the signUpUser action with the credentials
+        dispatch(signUpUser(credentials));
+        if (!authState.error) {
+            navigate("/login");
+        }
     };
 
     return (

@@ -7,7 +7,7 @@ interface AuthState {
 }
 
 const getInitialAuthState = (): AuthState => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token_cms");
     return {
         isAuthenticated: !!token,
         error: null,
@@ -22,7 +22,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         rehydrateAuthState: (state) => {
-            const token = localStorage.getItem("token");
+            const token = localStorage.getItem("token_cms");
             state.isAuthenticated = !!token;
             state.isRehydrated = true; // Mark rehydration as complete
         },
@@ -37,7 +37,7 @@ const authSlice = createSlice({
                     action.payload.username === "user" &&
                     action.payload.password === "password"
                 ) {
-                    localStorage.setItem("token", "mock_token");
+                    localStorage.setItem("token_cms", "mock_token");
                     state.isAuthenticated = true;
                     state.error = null;
                 } else {
@@ -61,8 +61,6 @@ const authSlice = createSlice({
                 if (
                     validatePassword(action.payload.password, action.payload.cpassword)
                 ) {
-                    localStorage.setItem("token", "mock_token");
-                    state.isAuthenticated = true;
                     state.error = null;
                 } else {
                     state.error = "Invalid Passwords";
@@ -72,7 +70,7 @@ const authSlice = createSlice({
             }
         },
         logOut: (state) => {
-            localStorage.removeItem("token");
+            localStorage.removeItem("token_cms");
             state.isAuthenticated = false;
             state.error = null;
         },
@@ -95,6 +93,7 @@ const validatePassword = (password: string, cpassword: string) => {
     return password.length >= 8 && password === cpassword;
 };
 
-export const { signInUser, signUpUser, logOut, rehydrateAuthState } = authSlice.actions;
+export const { signInUser, signUpUser, logOut, rehydrateAuthState } =
+    authSlice.actions;
 
 export default authSlice.reducer;

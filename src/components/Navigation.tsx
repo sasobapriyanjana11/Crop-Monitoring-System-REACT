@@ -75,11 +75,6 @@ export function Navigation() {
                                 <i className="fas fa-truck"></i> Vehicle
                             </Link>
                         </li>
-                        {/*<li>*/}
-                        {/*    <Link to='/signout' className="custom-link">*/}
-                        {/*        <i className="fas fa-sign-out-alt"></i>Sign Out*/}
-                        {/*    </Link>*/}
-                        {/*</li>*/}
                     </ul>
                     <div className="mb-5">
                         {authState.isAuthenticated ? (
