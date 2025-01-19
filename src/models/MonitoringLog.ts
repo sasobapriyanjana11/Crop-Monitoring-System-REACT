@@ -1,27 +1,19 @@
-import {Field} from "./Field.ts";
-import {Crop} from "./Crop.ts";
-import {Staff} from "./Staff.ts";
-import {ReactNode} from "react";
-
 export class MonitoringLog {
     logCode: string;
-    logDate: Date;
+    logDate: string;
     observation:string;
     observedImage:string;
-    field:Array<Field>;
-    fieldCode:ReactNode;
-    crop:Array<Crop>;
-    cropCode:ReactNode;
-    staff:Array<Staff>;
-    staffId:ReactNode;
+    fieldCode:string;
+    cropCode:string;
+    staffId:string;
 
-    constructor(logCode: string, logDate: Date, observation: string, observedImage: string, field:Array<Field>,crop:Array<Crop>,staff:Array<Staff>) {
+    constructor(logCode: string, logDate: string, observation: string, observedImage: string, fieldCode:string,cropCode:string,staffId:string) {
         this.logCode = logCode;
         this.logDate = logDate;
         this.observation = observation;
         this.observedImage = observedImage;
-        this.field = field;
-        this.crop = crop;
-        this.staff = staff;
+        this.fieldCode = fieldCode;
+        this.cropCode = cropCode;
+        this.staffId = staffId;
     }
 }

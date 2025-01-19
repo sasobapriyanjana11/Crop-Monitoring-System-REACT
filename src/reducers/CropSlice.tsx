@@ -7,7 +7,7 @@ interface Crop {
     category: string;
     cropSeason: string;
     fieldCode: string;
-    image: string | null; // Store image URL or filename, not the File object
+    image: string; // Store image URL or filename, not the File object
 }
 
 interface CropsState {

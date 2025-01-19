@@ -17,7 +17,7 @@ const staffSlice = createSlice({
         },
         removeStaff:(state,action:PayloadAction<string>)=>{
             state.staff=state.staff.filter(
-                staff => staff.id !== action.payload);
+                staff => staff.email !== action.payload);
         },
         updateStaff:(state,action)=>{
             const index = state.staff.findIndex(

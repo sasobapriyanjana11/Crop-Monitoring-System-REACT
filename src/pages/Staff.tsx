@@ -1,14 +1,26 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store.ts";
-import { useState } from "react";
-import { Field } from "../models/Field.ts";
-import { Vehicle } from "../models/Vehicle.ts";
+import React, { useState } from "react";
 import { removeStaff, addStaff, updateStaff } from "../reducers/StaffSlice.tsx";
+import {Staff} from "../models/Staff.ts";
 
 
-export function Staff() {
-    const staff = useSelector((state: RootState) => state.staff.staff);
+export const StaffForm=()=> {
     const dispatch = useDispatch();
+    const staff = useSelector((state: RootState) => state.staff.staff);
+    const [id, setId] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [ designation, setDesignation] = useState("");
+    const [gender, setGender] = useState("");
+    const [joinedDate, setJoinDate] = useState("");
+    const [DOB, setDob] = useState("");
+    const [address, setAddress] = useState("");
+    const [contactNumber, setContactNumber] = useState<number>(0);
+    const [email, setEmail] = useState("");
+    const [role, setRole] = useState("");
+    const[fieldCode, setFieldCode] = useState("");
+    const[vehicleCode, setVehicleCode] = useState("");
 
     // Modal state
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,22 +29,63 @@ export function Staff() {
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
-    // Initialize new staff state with correct types
-    const [newStaff, setNewStaff] = useState({
-        id: "",
-        firstName: "",
-        lastName: "",
-        designation: "",
-        gender: "",
-        joinedDate: new Date(),  // Set a default date or handle it as needed
-        DOB: new Date(),          // Set a default date or handle it as needed
-        address: "",
-        contactNumber: 0,
-        email: "",
-        role: "",
-        field: [] as Field[],     // Default to an empty array of type Field
-        vehicle: [] as Vehicle[], // Default to an empty array of type Vehicle
-    });
+    //add staff
+    function AddStaff(e:React.MouseEvent<HTMLButtonElement>) {
+        e.preventDefault(); // Prevent form from submitting
+        const newStaff = {
+            id, firstName, lastName, designation, gender, joinedDate, DOB, address, contactNumber, email, role,fieldCode,vehicleCode
+        };
+        dispatch(addStaff(newStaff));
+        alert("Staff member added successfully!");
+        clearData();
+    }
+    //update staff
+    function handleRowClick(staff:Staff) {
+        setId(staff.id);
+        setFirstName(staff.firstName);
+        setLastName(staff.lastName);
+        setDesignation(staff.designation);
+        setGender(staff.gender);
+        setJoinDate(staff.joinedDate);
+        setDob(staff.DOB);
+        setAddress(staff.address);
+        setContactNumber(staff.contactNumber);
+        setEmail(staff.email);
+        setRole(staff.role);
+        setFieldCode(staff.fieldCode);
+        setVehicleCode(staff.vehicleCode);
+        openModal();
+    }
+    function UpdateStaff() {
+        const updateStaffs ={id, firstName, lastName, designation, gender, joinedDate, DOB, address, contactNumber, email, role,fieldCode,vehicleCode};
+        dispatch(updateStaff(updateStaffs));
+        alert("Staff member updated successfully!");
+        closeModal();
+    }
+
+    //delete staff
+    function DeleteStaff(email:string) {
+        alert("Staff member delete successfully!!")
+        dispatch(removeStaff(email))
+        closeModal();
+    }
+    //clear data
+    function clearData(){
+        setId("");
+        setFirstName("");
+        setLastName("");
+        setDesignation("");
+        setGender("");
+        setJoinDate("");
+        setDob("");
+        setAddress("");
+        setContactNumber(0);
+        setEmail("");
+        setRole("");
+        setFieldCode("");
+        setVehicleCode("");
+        openModal();
+    }
 
     return (
         <>
@@ -70,14 +123,14 @@ export function Staff() {
                         <th className="px-4 py-2 border">Contact No</th>
                         <th className="px-4 py-2 border">Email</th>
                         <th className="px-4 py-2 border">Role</th>
-                        <th className="px-4 py-2 border">Field</th>
-                        <th className="px-4 py-2 border">Vehicle</th>
+                        <th className="px-4 py-2 border">Field Code</th>
+                        <th className="px-4 py-2 border">Vehicle Code</th>
                         <th className="px-4 py-2 border">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {staff.map((staff, index) => (
-                        <tr key={index}>
+                    {staff.map((staff) => (
+                        <tr key={staff.id}>
                             <td className="px-4 py-2 border">
                                 <input type="checkbox"/>
                             </td>
@@ -92,17 +145,24 @@ export function Staff() {
                             <td className="px-4 py-2 border">{staff.contactNumber}</td>
                             <td className="px-4 py-2 border">{staff.email}</td>
                             <td className="px-4 py-2 border">{staff.role}</td>
-                            <td className="px-4 py-2 border">{staff.field.join(", ")}</td>
-                            <td className="px-4 py-2 border">{staff.vehicle.join(", ")}</td>
+                            <td className="px-4 py-2 border">{staff.fieldCode}</td>
+                            <td className="px-4 py-2 border">{staff.vehicleCode}</td>
                             <td className="px-4 py-2 border">
+                                <button
+                                    className="text-purple-500"
+                                    onClick={() => {
+                                            handleRowClick(staff)
+                                    }
+                                    }
+                                >
+                                    Update
+                                </button>
                                 <button
                                     className="text-red-500"
                                     onClick={() => {
-                                        if (confirm("Are you sure you want to delete this staff member?")){
-                                            dispatch(removeStaff(staff.id))
-                                        }
+                                       DeleteStaff(staff.email);
                                     }
-                                }
+                                    }
                                 >
                                     Delete
                                 </button>
@@ -115,10 +175,10 @@ export function Staff() {
 
             {/* Modal */}
             {isModalOpen && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                <div className="bg-white rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/2">
-                    <div className="flex justify-between items-center px-4 py-2 border-b bg-lime-100">
-                        <h5 className="text-lg font-bold">Staff Details</h5>
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-white rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/2">
+                        <div className="flex justify-between items-center px-4 py-2 border-b bg-lime-100">
+                            <h5 className="text-lg font-bold">Staff Details</h5>
                         <button
                             className="text-gray-500 hover:text-gray-700"
                             onClick={closeModal}
@@ -129,7 +189,7 @@ export function Staff() {
                     <div className="p-4">
                         <form id="staffForm" className="space-y-4">
                             {/* Input fields for staff details */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label htmlFor="staffId" className="block font-medium">
                                         Staff Id
@@ -139,8 +199,8 @@ export function Staff() {
                                         className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="id"
                                         placeholder="Enter Staff Id"
-                                        value={newStaff.id}
-                                        onChange={(e) => setNewStaff({...newStaff, id: e.target.value})}
+                                        value={id}
+                                        onChange={(e) => setId(e.target.value)}
                                     />
                                 </div>
                                 <div>
@@ -152,8 +212,8 @@ export function Staff() {
                                         className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="firstName"
                                         placeholder="Enter First Name"
-                                        value={newStaff.firstName}
-                                        onChange={(e) => setNewStaff({...newStaff, firstName: e.target.value})}
+                                        value={firstName}
+                                        onChange={(e) => setFirstName(e.target.value)}
                                     />
                                 </div>
                                 <div>
@@ -165,8 +225,8 @@ export function Staff() {
                                         className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="lastName"
                                         placeholder="Enter Last Name"
-                                        value={newStaff.lastName}
-                                        onChange={(e) => setNewStaff({...newStaff, lastName: e.target.value})}
+                                        value={lastName}
+                                        onChange={(e) => setLastName(e.target.value)}
                                     />
                                 </div>
                                 <div>
@@ -178,8 +238,8 @@ export function Staff() {
                                         className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="designation"
                                         placeholder="Enter Designation"
-                                        value={newStaff.designation}
-                                        onChange={(e) => setNewStaff({...newStaff, designation: e.target.value})}
+                                        value={designation}
+                                        onChange={(e) => setDesignation(e.target.value)}
                                     />
                                 </div>
                                 <div>
@@ -189,8 +249,8 @@ export function Staff() {
                                     <select
                                         className="form-select w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="gender"
-                                        value={newStaff.gender}
-                                        onChange={(e) => setNewStaff({...newStaff, gender: e.target.value})}
+                                        value={gender}
+                                        onChange={(e) => setGender(e.target.value)}
                                     >
                                         <option value="">Select Gender</option>
                                         <option value="Male">Male</option>
@@ -206,11 +266,8 @@ export function Staff() {
                                         type="date"
                                         className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="joinedDate"
-                                        value={newStaff.joinedDate.toISOString().split('T')[0]}
-                                        onChange={(e) => setNewStaff({
-                                            ...newStaff,
-                                            joinedDate: new Date(e.target.value)
-                                        })}
+                                        value={joinedDate}
+                                        onChange={(e) => setJoinDate(e.target.value)}
                                     />
                                 </div>
                                 <div>
@@ -221,8 +278,8 @@ export function Staff() {
                                         type="date"
                                         className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="DOB"
-                                        value={newStaff.DOB.toISOString().split('T')[0]}
-                                        onChange={(e) => setNewStaff({...newStaff, DOB: new Date(e.target.value)})}
+                                        value={DOB}
+                                        onChange={(e) => setDob(e.target.value)}
                                     />
                                 </div>
                                 <div>
@@ -233,8 +290,8 @@ export function Staff() {
                                         className="form-textarea w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="address"
                                         placeholder="Enter Address"
-                                        value={newStaff.address}
-                                        onChange={(e) => setNewStaff({...newStaff, address: e.target.value})}
+                                        value={address}
+                                        onChange={(e) => setAddress(e.target.value)}
                                     />
                                 </div>
                                 <div>
@@ -246,11 +303,8 @@ export function Staff() {
                                         className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="contactNumber"
                                         placeholder="Enter Contact Number"
-                                        value={newStaff.contactNumber}
-                                        onChange={(e) => setNewStaff({
-                                            ...newStaff,
-                                            contactNumber: Number(e.target.value)
-                                        })}
+                                        value={contactNumber}
+                                        onChange={(e) => setContactNumber(Number(e.target.value))}
                                     />
                                 </div>
                                 <div>
@@ -262,49 +316,85 @@ export function Staff() {
                                         className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                         id="email"
                                         placeholder="Enter Email"
-                                        value={newStaff.email}
-                                        onChange={(e) => setNewStaff({...newStaff, email: e.target.value})}
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                     />
                                 </div>
                                 <div>
                                     <label htmlFor="role" className="block font-medium">
                                         Role
                                     </label>
-                                    <input
-                                        type="text"
-                                        className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
-                                        id="role"
-                                        placeholder="Enter Role"
-                                        value={newStaff.role}
-                                        onChange={(e) => setNewStaff({...newStaff, role: e.target.value})}
-                                    />
+                                    <select className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none" value={role}
+                                            onChange={(e) => setRole(e.target.value)}>
+                                        <option value="MANAGER">Manager</option>
+                                        <option value="ADMINISTRATIVE">Administrative</option>
+                                        <option value="SCIENTIST">Scientist</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label htmlFor="fieldCode" className="block font-medium">
+                                       Field Code
+                                    </label>
+                                    <select
+                                        className="form-select w-full border bg-white border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                                        id="fieldCode"
+                                        value={fieldCode}
+                                        onChange={(e) => setFieldCode(e.target.value)}
+                                    >
+                                        <option value="" disabled>
+                                            Select Field Code
+                                        </option>
+                                        <option value="F-001">F-001</option>
+                                        <option value="F-002">F-002</option>
+                                        <option value="F-003">F-003</option>
+
+                                    </select>
+                                </div>
+                                <div>
+                                    <label htmlFor="vehicleCode" className="block font-medium">
+                                        Vehicle Code
+                                    </label>
+                                    <select
+                                        className="form-select w-full border bg-white border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                                        id="vehicleCode"
+                                        value={vehicleCode}
+                                        onChange={(e) => setVehicleCode(e.target.value)}
+                                    >
+                                        <option value="" disabled>
+                                            Select Vehicle Code
+                                        </option>
+                                        <option value="V-001">V-001</option>
+                                        <option value="V-002">V-002</option>
+                                        <option value="V-003">V-003</option>
+
+                                    </select>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    {/* Submit/Save/update button */}
-                    <div className="flex justify-end space-x-2 px-4 py-2 border-t">
-                        <button
-                            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-400"
-                            onClick={() => dispatch(addStaff(newStaff))}
-                        >
-                            Save
-                        </button>
-                        <button
-                            className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-400"
-                            onClick={() => dispatch(updateStaff(newStaff))}
-                        >
-                            Update
-                        </button>
-                        <button
-                            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:ring-2 focus:ring-red-400"
-                            onClick={closeModal}
-                        >
-                            Cancel
-                        </button>
+                        {/* Submit/Save/update button */}
+                        <div className="flex justify-end space-x-2 px-4 py-2 border-t">
+                            <button
+                                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-400"
+                                onClick={AddStaff}
+                            >
+                                Save
+                            </button>
+                            <button
+                                className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-400"
+                                onClick={UpdateStaff}
+                            >
+                                Update
+                            </button>
+                            <button
+                                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:ring-2 focus:ring-red-400"
+                                onClick={closeModal}
+                            >
+                                Cancel
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
             )}
         </>
     );

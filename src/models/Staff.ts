@@ -1,22 +1,19 @@
-import {Field} from "./Field.ts";
-import {Vehicle} from "./Vehicle.ts";
-
 export class Staff{
     id:string;
     firstName:string;
     lastName:string;
     designation:string;
     gender:string;
-    joinedDate:Date;
-    DOB:Date
+    joinedDate:string;
+    DOB:string;
     address:string;
     contactNumber:number;
     email:string;
     role:string;
-    field:Array<Field>;
-    vehicle:Array<Vehicle>;
+    fieldCode:string;
+    vehicleCode:string;
 
-    constructor(id: string,firstName:string,lastName:string,designation:string,gender:string,joinedDate:Date,DOB:Date,address:string,contactNumber:number,email:string,role:string,field:Array<Field>,vehicle:Array<Vehicle>) {
+    constructor(id: string,firstName:string,lastName:string,designation:string,gender:string,joinedDate:string,DOB:string,address:string,contactNumber:number,email:string,role:string,fieldCode:string,vehicleCode:string) {
         this.id=id;
         this.firstName=firstName;
         this.lastName=lastName;
@@ -28,8 +25,8 @@ export class Staff{
         this.contactNumber=contactNumber;
         this.email=email;
         this.role=role;
-        this.field=field;
-        this.vehicle=vehicle;
+        this.fieldCode=fieldCode;
+        this.vehicleCode=vehicleCode;
 
     }
 }

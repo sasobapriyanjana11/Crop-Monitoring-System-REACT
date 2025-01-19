@@ -2,40 +2,121 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/store.ts";
 import React, {useState} from "react";
 import {deleteFields,addFields,updateFields} from "../reducers/FieldSlice.tsx";
+import {Field} from "../models/Field.ts";
 
+export const FieldForm=()=> {
 
-export function Field() {
-    const fields=useSelector((state:RootState)=>state.fields.fields);
     const dispatch=useDispatch();
+    const [fieldCode, setFieldCode] = useState("");
+    const [fieldName, setFieldName] = useState("");
+    const [fieldLocation, setFieldLocation] = useState("");
+    const [extentSize, setExtentSize] = useState<number>(0);
+    const [fieldImage1, setFieldImage1] = useState("");
+    const [fieldImage2, setFieldImage2] = useState("");
+    const[cropCode, setCropCode] = useState("");
+    const[staffId, setStaffId] = useState("");
+    const fields=useSelector((state:RootState)=>state.fields.fields);
 
     // State for managing modal visibility
     const [isModalOpen, setIsModalOpen] = useState(false);
     // Handlers
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
+    // image preview
+    const [fieldImagePreview1, setFieldImagePreview1] = useState("");
+    const [fieldImagePreview2, setFieldImagePreview2] = useState("");
 
-    const [newField, setNewField] = useState({
-        fieldCode: "",
-        fieldName: "",
-        fieldLocation :"",
-        extentSize:0,
-        cropCode:"",
-        staffId:"",
-        fieldImage1:"",
-        fieldImage2:""
-    });
-    const handleFileFieldImage_1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files ? e.target.files[0] : null;
+    const handleImageChange1 = (e) => {
+        const file = e.target.files[0];
         if (file) {
-            setNewField({ ...newField, fieldImage1: file.name }); // Store the file name or URL
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setFieldImagePreview1(event.target.result); // Update the preview state for image 1
+            };
+            reader.readAsDataURL(file);
+            setFieldImage1(file); // Save the file itself to be stored in the state
+        } else {
+            setFieldImagePreview1(""); // Clear the preview if no file selected
         }
     };
-    const handleFileFieldImage_2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files ? e.target.files[0] : null;
+    const handleImageChange2 = (e) => {
+        const file = e.target.files[0];
         if (file) {
-            setNewField({ ...newField, fieldImage2: file.name });
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setFieldImagePreview2(event.target.result);
+            };
+            reader.readAsDataURL(file);
+            setFieldImage2(file);
+        } else {
+            setFieldImagePreview2("");
         }
     };
+
+    //add field
+    function AddField(e:React.MouseEvent<HTMLButtonElement>){
+        e.preventDefault();
+        const newField ={
+            fieldCode:fieldCode,
+            fieldName:fieldName,
+            fieldLocation:fieldLocation,
+            extentSize:extentSize,
+            fieldImage1:fieldImage1,
+            fieldImage2:fieldImage2,
+            cropCode:cropCode,
+            staffId:staffId,
+        };
+        dispatch(addFields(newField));
+        alert("Field member added successfully!!");
+        clear();
+        closeModal();
+    }
+    //update field
+    function handleRowClick(field:Field){
+        setFieldCode(field.fieldCode);
+        setFieldName(field.fieldName);
+        setFieldLocation(field.fieldLocation);
+        setExtentSize(Number(field.extentSize));
+        setFieldImage1(field.fieldImage1);
+        setFieldImage2(field.fieldImage2);
+        setCropCode(field.cropCode);
+        setStaffId(field.staffId);
+        openModal();
+    }
+
+    function UpdateField(){
+        const updatedFields = {
+            fieldCode:fieldCode,
+            fieldName:fieldName,
+            fieldLocation:fieldLocation,
+            extentSize:extentSize,
+            fieldImage1:fieldImage1,
+            fieldImage2:fieldImage2,
+            cropCode:cropCode,
+            staffId:staffId
+        };
+        dispatch(updateFields(updatedFields));
+        alert("Updated Field successfully!!");
+        clear();
+        closeModal();
+    }
+    //delete field
+    function DeleteField(fieldCode:string){
+        alert("Field Deleted Successfully!!");
+        dispatch(deleteFields(fieldCode));
+        closeModal();
+    }
+    function clear(){
+        setFieldCode("");
+        setFieldName("");
+        setFieldLocation("");
+        setExtentSize(0);
+        setFieldImage1("");
+        setFieldImage2("");
+        setCropCode("");
+        setStaffId("");
+    }
+
 
     return (
         <>
@@ -65,16 +146,16 @@ export function Field() {
                         <th className="px-4 py-2 border">Field Name</th>
                         <th className="px-4 py-2 border">Field Location</th>
                         <th className="px-4 py-2 border">Extent Size</th>
-                        <th className="px-4 py-2 border">crops</th>
-                        <th className="px-4 py-2 border">staff</th>
+                        <th className="px-4 py-2 border">Crop Code</th>
+                        <th className="px-4 py-2 border">Staff Id</th>
                         <th className="px-4 py-2 border">Field Image1</th>
                         <th className="px-4 py-2 border">Field Image2</th>
                         <th className="px-4 py-2 border">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {fields.map((field, index) => (
-                        <tr key={index}>
+                    {fields.map((field) => (
+                        <tr key={field.fieldCode}>
                             <td className="px-4 py-2 border">
                                 <input type="checkbox"/>
                             </td>
@@ -84,15 +165,28 @@ export function Field() {
                             <td className="px-4 py-2 border">{field.extentSize}</td>
                             <td className="px-4 py-2 border">{field.cropCode}</td>
                             <td className="px-4 py-2 border">{field.staffId}</td>
-                            <td className="px-4 py-2 border">{field.fieldImage1 || "No Image"}</td>
-                            <td className="px-4 py-2 border">{field.fieldImage2 || "No Image"}</td>
+                            <td className="px-4 py-2 border">{field.fieldImage1 &&
+                                <img src={fieldImagePreview1} alt="Field Image 1"
+                                     className="h-16 w-16 object-cover rounded-md"/>}</td>
+                            <td className="px-4 py-2 border">{field.fieldImage2 &&
+                                <img src={fieldImagePreview2} alt="Field Image 2"
+                                     className="h-16 w-16 object-cover rounded-md"/>}</td>
                             <td className="px-4 py-2 border">
+                                <button
+                                    className="text-purple-500"
+                                    onClick={() => {
+                                        handleRowClick(field);
+
+                                    }}
+                                >
+                                   Update
+                                </button>
                                 <button
                                     className="text-red-500"
                                     onClick={() => {
-                                        if (confirm("Are you sure you want to delete this field?")){
-                                            dispatch(deleteFields(field.fieldCode))
-                                        }}}
+                                        DeleteField(field.fieldCode)
+
+                                    }}
                                 >
                                     Delete
                                 </button>
@@ -129,8 +223,8 @@ export function Field() {
                                             className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="fieldCode"
                                             placeholder="Enter Field Code"
-                                            value={newField.fieldCode}
-                                            onChange={(e) => setNewField({...newField, fieldCode: e.target.value})}
+                                            value={fieldCode}
+                                            onChange={(e) => setFieldCode(e.target.value)}
                                         />
                                     </div>
                                     <div>
@@ -142,98 +236,117 @@ export function Field() {
                                             className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="fieldName"
                                             placeholder="Enter Field Name"
-                                            value={newField.fieldName}
-                                            onChange={(e) => setNewField({...newField, fieldName: e.target.value})}
+                                            value={fieldName}
+                                            onChange={(e) => setFieldName(e.target.value)}
                                         />
                                     </div>
-                                    <div>
-                                        <label htmlFor="fieldLocation" className="block font-medium">
-                                            Field Location
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
-                                            id="fieldLocation"
-                                            placeholder="Enter Field Location"
-                                            value={newField.fieldLocation}
-                                            onChange={(e) => setNewField({...newField, fieldLocation: e.target.value})}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="extentSize" className="block font-medium">
-                                            Extent Size
-                                        </label>
-                                        <input
-                                            type="number"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
-                                            id="extentSize"
-                                            placeholder="Enter Extent Size"
-                                            value={newField.extentSize}
-                                            onChange={(e) => setNewField({...newField, extentSize: Number(e.target.value)})}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="fieldCode" className="block font-medium">
-                                            cropCode
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
-                                            id="cropCode"
-                                            placeholder="Enter Crop Code"
-                                            value={newField.cropCode}
-                                            onChange={(e) => setNewField({...newField, cropCode: e.target.value})}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="staffId" className="block font-medium">
-                                            Staff Id
-                                        </label>
-                                        <input
-                                            type="text"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
-                                            id="staffId"
-                                            placeholder="Enter Staff Id"
-                                            value={newField.staffId}
-                                            onChange={(e) => setNewField({...newField, staffId: e.target.value})}
-                                        />
-                                    </div>
-                                </div>
-                                {/* Other fields */}
-                                <div>
-                                    <label htmlFor="fieldImage1" className="block font-medium">
-                                        Field Image_1
-                                    </label>
-                                    <input
-                                        type="file"
-                                        className="form-input w-full border bg-white border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-200 file:text-green-800 hover:file:bg-green-200"
-                                        id="fieldImage1"
-                                        onChange={handleFileFieldImage_1Change}
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor="fieldImage2" className="block font-medium">
-                                        Field Image_2
-                                    </label>
-                                    <input
-                                        type="file"
-                                        className="form-input w-full border bg-white border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-200 file:text-green-800 hover:file:bg-green-200"
-                                        id="fieldImage2"
-                                        onChange={handleFileFieldImage_2Change}
-                                    />
+                                        <div>
+                                            <label htmlFor="fieldLocation" className="block font-medium">
+                                                Field Location
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                                                id="fieldLocation"
+                                                placeholder="Enter Field Location"
+                                                value={fieldLocation}
+                                                onChange={(e) => setFieldLocation(e.target.value)}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label htmlFor="extendSize" className="block font-medium">
+                                                Extent Size
+                                            </label>
+                                            <select
+                                                className="form-select w-full border bg-white border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                                                id="extentSize"
+                                                value={extentSize}
+                                                onChange={(e) => setExtentSize(Number(e.target.value))}
+                                            >
+                                                <option value={0} disabled>Select Size</option>
+                                                <option value={1000}>1000</option>
+                                                <option value={2000}>2000</option>
+                                                <option value={3000}>3000</option>
+
+                                            </select>
+                                        </div>
+
+                                            <div>
+                                                <label htmlFor="fieldCode" className="block font-medium">
+                                                    Crop Code
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                                                    id="cropCode"
+                                                    placeholder="Enter Crop Code"
+                                                    value={cropCode}
+                                                    onChange={(e) => setCropCode(e.target.value)}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label htmlFor="staffId" className="block font-medium">
+                                                    Staff Id
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                                                    id="staffId"
+                                                    placeholder="Enter Staff Id"
+                                                    value={staffId}
+                                                    onChange={(e) => setStaffId(e.target.value)}
+                                                />
+                                            </div>
+
+                                        <div>
+                                            <label htmlFor="fieldImage1" className="block font-medium">
+                                                Field Image_1
+                                            </label>
+                                            <input
+                                                type="file"
+                                                className="form-input w-full border bg-white border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-200 file:text-green-800 hover:file:bg-green-200"
+                                                id="fieldImage1"
+                                                onChange={handleImageChange1}
+                                            />
+                                            {/* Image Preview */}
+                                            {fieldImagePreview1 && (
+                                                <div className="mt-4">
+                                                    <img src={fieldImagePreview1} alt="Preview"
+                                                         className="h-32 w-32 object-cover rounded-full"/>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div>
+                                            <label htmlFor="fieldImage2" className="block font-medium">
+                                                Field Image_2
+                                            </label>
+                                            <input
+                                                type="file"
+                                                className="form-input w-full border bg-white border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-200 file:text-green-800 hover:file:bg-green-200"
+                                                id="fieldImage2"
+                                                onChange={handleImageChange2}
+                                            />
+                                            {/* Image Preview */}
+                                            {fieldImagePreview2 && (
+                                                <div className="mt-4">
+                                                    <img src={fieldImagePreview2} alt="Preview"
+                                                         className="h-32 w-32 object-cover rounded-md"/>
+                                                </div>
+                                            )}
+                                        </div>
                                 </div>
                             </form>
                         </div>
                         <div className="flex justify-end space-x-2 px-4 py-2 border-t">
                             <button
                                 className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-400"
-                                onClick={() => dispatch(addFields(newField))}
+                                onClick={AddField}
                             >
                                 Save
                             </button>
                             <button
                                 className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-400"
-                                onClick={() => dispatch(updateFields(newField))}
+                                onClick={UpdateField}
                             >
                                 Update
                             </button>

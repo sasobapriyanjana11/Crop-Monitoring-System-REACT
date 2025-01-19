@@ -2,33 +2,86 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/store.ts";
 import React, {useState} from "react";
 import {addMonitoringLog, deleteMonitoringLog, updateMonitoringLog} from "../reducers/MonitoringLogSlice.tsx";
+import {MonitoringLog} from "../models/MonitoringLog.ts";
 
-export function MonitoringLog() {
-    const mlogs=useSelector((state:RootState)=>state.mLogs.mLogs);
+export const MonitoringLogForm=()=> {
+
     const dispatch=useDispatch();
+    const [logCode, setLogCode] = useState("");
+    const [logDate, setLogDate] = useState("");
+    const [observation, setObservation] = useState("");
+    const [observedImage, setObservedImage] = useState("");
+    const[cropCode,setCropCode]=useState("");
+    const[fieldCode,setFieldCode]=useState("");
+    const[staffId,setStaffId]=useState("");
+    const mlogs=useSelector((state:RootState)=>state.mLogs.mLogs);
 
     // State for managing modal visibility
     const [isModalOpen, setIsModalOpen] = useState(false);
     // Handlers
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
-
-    const[newMLog,setNewMLog]=useState({
-        logCode: "",
-        logDate: new Date(),
-        observation:"",
-        observedImage:"",
-        fieldCode:"",
-        cropCode:"",
-        staffId:""
-    });
-
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files ? e.target.files[0] : null;
+    // image preview
+    const [monitoringImagePreview, setMonitoringImagePreview] = useState("");
+    const handleImageChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files[0];
         if (file) {
-            setNewMLog({ ...newMLog, observedImage: file.name }); // Store the file name or URL
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setMonitoringImagePreview(event.target.result);
+            };
+            reader.readAsDataURL(file);
+            setObservedImage(file);
+        } else {
+            setMonitoringImagePreview("");
         }
     };
+    //add monitoring
+    function AddMonitoring(e:React.MouseEvent<HTMLButtonElement>) {
+        e.preventDefault();
+        const newMonitoring = {logCode,logDate,observation,observedImage,cropCode,fieldCode,staffId};
+        dispatch(addMonitoringLog(newMonitoring));
+        alert("Log was added Successfully!");
+        clear();
+       closeModal();
+    }
+
+    //update monitoring
+    function handleRowClick(monitoring:MonitoringLog) {
+        setLogCode(monitoring.logCode);
+        setLogDate(monitoring.logDate);
+        setObservation(monitoring.observation);
+        setCropCode(monitoring.cropCode);
+        setStaffId(monitoring.staffId);
+        setFieldCode(monitoring.fieldCode);
+        setObservedImage(monitoring.observedImage);
+        openModal();
+    }
+
+
+    function UpdateMonitoring() {
+        const updatedMonitoring = {logCode,logDate,observation,observedImage,cropCode,fieldCode,staffId};
+        dispatch(updateMonitoringLog(updatedMonitoring));
+        alert("Log was updated Successfully!");
+        clear();
+        closeModal();
+    }
+
+    //delete log
+    function DeleteMonitoring(logCode:string) {
+        alert("Log was deleted Successfully!");
+        dispatch(deleteMonitoringLog(logCode));
+        closeModal();
+    }
+    function clear(){
+        setLogCode("");
+        setLogDate("");
+        setObservation("");
+        setCropCode("");
+        setObservedImage("");
+        setFieldCode("");
+        setStaffId("");
+    }
 
     return (
         <>
@@ -66,25 +119,36 @@ export function MonitoringLog() {
                     </tr>
                     </thead>
                     <tbody>
-                    {mlogs.map((mLog, index) => (
-                        <tr key={index}>
+                    {mlogs.map((mLog) => (
+                        <tr key={mLog.logCode}>
                             <td className="px-4 py-2 border">
                                 <input type="checkbox"/>
                             </td>
                             <td className="px-4 py-2 border">{mLog.logCode}</td>
                             <td className="px-4 py-2 border">{new Date(mLog.logDate).toLocaleDateString()}</td>
                             <td className="px-4 py-2 border">{mLog.observation}</td>
-                            <td className="px-4 py-2 border">{mLog.observedImage || "No Image"}</td>
+                            <td className="h-16 w-16 object-cover rounded-md">{mLog.observedImage &&
+                                <img src={monitoringImagePreview} alt=" Image "
+                                     className="h-16 w-16 object-cover rounded-md"/>}</td>
                             <td className="px-4 py-2 border">{mLog.fieldCode}</td>
                             <td className="px-4 py-2 border">{mLog.cropCode}</td>
                             <td className="px-4 py-2 border">{mLog.staffId}</td>
                             <td className="px-4 py-2 border">
                                 <button
+                                    className="text-purple-500"
+                                    onClick={() => {
+                                        handleRowClick(mLog)
+
+                                    }
+                                    }
+                                >
+                                    Update
+                                </button>
+                                <button
                                     className="text-red-500"
                                     onClick={() => {
-                                        if (confirm("Are you sure you want to delete this log?")){
-                                            dispatch(deleteMonitoringLog(mLog.logCode))
-                                        }
+                                        DeleteMonitoring(mLog.logCode)
+
                                     }
                                     }
                                 >
@@ -101,7 +165,7 @@ export function MonitoringLog() {
             {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                     <div className="bg-white rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/2">
-                        <div className="flex justify-between items-center px-4 py-2 border-b bg-lime-100">
+                    <div className="flex justify-between items-center px-4 py-2 border-b bg-lime-100">
                             <h5 className="text-lg font-bold">Monitoring Log Details</h5>
                             <button
                                 className="text-gray-500 hover:text-gray-700"
@@ -123,8 +187,8 @@ export function MonitoringLog() {
                                             className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="logCode"
                                             placeholder="Enter Log Code"
-                                            value={newMLog.logCode}
-                                            onChange={(e) => setNewMLog({...newMLog, logCode: e.target.value})}
+                                            value={logCode}
+                                            onChange={(e) => setLogCode(e.target.value)}
                                         />
                                     </div>
                                     <div>
@@ -132,15 +196,12 @@ export function MonitoringLog() {
                                             Log Date
                                         </label>
                                         <input
-                                            type="text"
+                                            type="date"
                                             className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="logDate"
                                             placeholder="Enter Log Date"
-                                            value={newMLog.logDate.toISOString().split('T')[0]}
-                                            onChange={(e) => setNewMLog({
-                                                ...newMLog,
-                                                logDate: new Date(e.target.value)
-                                            })}
+                                            value={logDate}
+                                            onChange={(e) => setLogDate(e.target.value)}
                                         />
                                     </div>
                                     <div>
@@ -152,8 +213,8 @@ export function MonitoringLog() {
                                             className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="observation"
                                             placeholder="Enter Observation"
-                                            value={newMLog.observation}
-                                            onChange={(e) => setNewMLog({...newMLog, observation: e.target.value})}
+                                            value={observation}
+                                            onChange={(e) => setObservation( e.target.value)}
                                         />
                                     </div>
                                     <div>
@@ -162,10 +223,17 @@ export function MonitoringLog() {
                                         </label>
                                         <input
                                             type="file"
-                                            className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                                            className="form-input w-full border bg-white border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-200 file:text-green-800 hover:file:bg-green-200"
                                             id="observedImage"
-                                            onChange={handleFileChange}
+                                            onChange={handleImageChange}
                                         />
+                                        {monitoringImagePreview && (
+                                            <div className="mt-4">
+                                                <img src={monitoringImagePreview} alt="Preview"
+                                                     className="h-32 w-32 object-cover rounded-md"/>
+
+                                            </div>
+                                            )}
                                     </div>
                                     <div>
                                         <label htmlFor="fieldCode" className="block font-medium">
@@ -176,8 +244,8 @@ export function MonitoringLog() {
                                             className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="fieldCode"
                                             placeholder="Enter Field Code"
-                                            value={newMLog.fieldCode}
-                                            onChange={(e) => setNewMLog({...newMLog, fieldCode: e.target.value})}
+                                            value={fieldCode}
+                                            onChange={(e) => setFieldCode(e.target.value)}
                                         />
                                     </div>
                                     <div>
@@ -189,8 +257,8 @@ export function MonitoringLog() {
                                             className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="cropCode"
                                             placeholder="Enter Crop Code"
-                                            value={newMLog.cropCode}
-                                            onChange={(e) => setNewMLog({...newMLog, cropCode: e.target.value})}
+                                            value={cropCode}
+                                            onChange={(e) => setCropCode(e.target.value)}
                                         />
                                     </div>
                                     <div>
@@ -202,8 +270,8 @@ export function MonitoringLog() {
                                             className="form-input w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                             id="staffId"
                                             placeholder="Enter Staff Id"
-                                            value={newMLog.staffId}
-                                            onChange={(e) => setNewMLog({...newMLog, staffId: e.target.value})}
+                                            value={staffId}
+                                            onChange={(e) => setStaffId(e.target.value)}
                                         />
                                     </div>
                                 </div>
@@ -214,13 +282,13 @@ export function MonitoringLog() {
                         <div className="flex justify-end space-x-2 px-4 py-2 border-t">
                             <button
                                 className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-400"
-                                onClick={() => dispatch(addMonitoringLog(newMLog))}
+                                onClick={AddMonitoring}
                             >
                                 Save
                             </button>
                             <button
                                 className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-400"
-                                onClick={() => dispatch(updateMonitoringLog(newMLog))}
+                                onClick={UpdateMonitoring}
                             >
                                 Update
                             </button>
